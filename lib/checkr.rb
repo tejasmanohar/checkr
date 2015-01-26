@@ -25,8 +25,8 @@ module Checkr
 
     alias :config :configure
 
-    def auth
-       {:username => Checkr.api_key }
+    def auth(api_key=nil)
+       {:username => api_key || Checkr.api_key }
     end
   end
 

@@ -2,17 +2,17 @@
 module Checkr
   class Candidate < Checkr::Base
 
-    def self.create(params={})
+    def self.create(params={}, api_key=nil)
       if valid?(params)
         uri = "/subaccounts/#{params[:subaccount_id]}" unless params[:subaccount_id].nil?
         uri = "#{uri}/candidates"
-        response = self.post(uri, :body => params, :basic_auth => Checkr.auth )
+        response = self.post(uri, :body => params, :basic_auth => Checkr.auth(api_key) )
         handle_response(response)
       end
     end
 
-    def self.find(id)
-      response = self.get("/candidates/#{id}?include=reports", :basic_auth => {:username => Checkr.api_key } )
+    def self.find(id, api_key=nil)
+      response = self.get("/candidates/#{id}?include=reports", :basic_auth => Checkr.auth(api_key) )
       handle_response(response)
     end
 

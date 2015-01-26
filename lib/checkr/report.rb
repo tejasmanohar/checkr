@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
 module Checkr
   class Report < Checkr::Base
-    def self.create(params={})
+    def self.create(params={}, api_key=nil)
       if valid?(params)
-        response = self.post("/#{self.to_s.tablelize}", :body => params, :basic_auth => Checkr.auth )
+        response = self.post("/#{self.to_s.tablelize}", :body => params, :basic_auth => Checkr.auth(api_key) )
         handle_response(response)
       end
     end
 
-    def self.find(id)
-      response = self.get("/#{self.to_s.tablelize}/#{id}", :basic_auth => Checkr.auth )
+    def self.find(id, api_key=nil)
+      response = self.get("/#{self.to_s.tablelize}/#{id}", :basic_auth => Checkr.auth(api_key) )
       handle_response(response)
     end
 
